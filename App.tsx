@@ -1,19 +1,63 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from "react";
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  Footer,
+  FooterTab,
+  Button,
+  Left,
+  Right,
+  Body,
+  Icon,
+  Text
+} from "native-base";
+import * as Font from "expo-font";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+export default class AnatomyExample extends Component {
+  state = {
+    isReady: false
+  };
+  async componentDidMount() {
+    await Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      ...Ionicons.font
+    });
+    this.setState({ isReady: true });
+  }
+
+  render() {
+    const { isReady } = this.state;
+
+    return (
+      isReady && (
+        <Container>
+          <Header>
+            <Left>
+              <Button transparent>
+                <Icon name="menu" />
+              </Button>
+            </Left>
+            <Body>
+              <Title>Header</Title>
+            </Body>
+            <Right />
+          </Header>
+          <Content>
+            <Text>This is Content Section</Text>
+          </Content>
+          <Footer>
+            <FooterTab>
+              <Button full>
+                <Text>Footer</Text>
+              </Button>
+            </FooterTab>
+          </Footer>
+        </Container>
+      )
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
